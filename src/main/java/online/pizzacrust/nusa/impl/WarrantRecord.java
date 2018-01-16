@@ -1,6 +1,9 @@
 package online.pizzacrust.nusa.impl;
 
 import online.pizzacrust.nusa.api.PreservedRecord;
+import online.pizzacrust.nusa.trello.Card;
+import online.pizzacrust.nusa.trello.DefaultStrategy;
+import online.pizzacrust.nusa.trello.TrelloRecord;
 
 public class WarrantRecord extends TrelloRecord implements PreservedRecord {
 

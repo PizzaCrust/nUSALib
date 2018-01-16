@@ -1,4 +1,4 @@
-package online.pizzacrust.nusa.impl;
+package online.pizzacrust.nusa.trello;
 
 public class Card {
 

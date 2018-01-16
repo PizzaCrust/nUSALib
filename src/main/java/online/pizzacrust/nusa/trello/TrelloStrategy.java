@@ -1,4 +1,4 @@
-package online.pizzacrust.nusa.impl;
+package online.pizzacrust.nusa.trello;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;

@@ -1,12 +1,10 @@
-package online.pizzacrust.nusa.impl;
+package online.pizzacrust.nusa.trello;
 
 import com.google.gson.Gson;
 
 import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
-import java.util.List;
 
 import online.pizzacrust.nusa.api.Record;
 
