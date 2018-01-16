@@ -85,6 +85,9 @@ public interface TrelloStrategy {
 
         public Card find(Card[] cards, String source) {
             for (Card card : cards) {
+                if (card.getName().contains(" ")) {
+                    continue;
+                }
                 String[] slash = card.getName().split("/");
                 if (slash.length >= 2) {
                     Integer user1 = getIdOfName(slash[0]);
