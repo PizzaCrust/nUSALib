@@ -1,5 +1,8 @@
 package online.pizzacrust.nusa.impl;
 
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 public interface TrelloStrategy {
 
     Card find(Card[] cards, String source);
@@ -58,6 +61,54 @@ public interface TrelloStrategy {
 
     }
 
+    /**
+     * Assumes cards are formatted like:
+     * - USERNAME
+     * - USERNAME/USERNAME <- splits into two diff
+     * source = ROBLOX USER ID TARGET
+     */
+    class UsernameStrategy implements TrelloStrategy {
 
+        public static class UsernameResponse {
+            public Integer Id;
+        }
+
+        private Integer getIdOfName(String username) {
+            String url = "https://api.roblox.com/users/get-by-username?username=" + username;
+            try {
+                return Unirest.get(url).asObject(UsernameResponse.class).getBody().Id;
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public Card find(Card[] cards, String source) {
+            for (Card card : cards) {
+                String[] slash = card.getName().split("/");
+                if (slash.length >= 2) {
+                    Integer user1 = getIdOfName(slash[0]);
+                    Integer user2 = getIdOfName(slash[1]);
+                    if (user1 != null) {
+                        if ((user1 + "").equalsIgnoreCase(source)) {
+                            return card;
+                        }
+                    }
+                    if (user2 != null) {
+                        if ((user2 + "").equalsIgnoreCase(source)) {
+                            return card;
+                        }
+                    }
+                }
+                Integer userId = getIdOfName(card.getName());
+                if (userId != null) {
+                    if ((userId + "").equalsIgnoreCase(source)) {
+                        return card;
+                    }
+                }
+            }
+            return null;
+        }
+    }
 
 }
